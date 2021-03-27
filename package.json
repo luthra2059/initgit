@@ -1,0 +1,36 @@
+{
+  "name": "initgit",
+  "version": "1.0.0",
+  "description": "Command Line Utility to help with repetitive work of project initialization using git and github.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luthra2059/initgit.git"
+  },
+  "keywords": [
+    "Node",
+    "CLI"
+  ],
+  "author": "Shubham Luthra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luthra2059/initgit/issues"
+  },
+  "homepage": "https://github.com/luthra2059/initgit#readme",
+  "dependencies": {
+    "@octokit/rest": "^18.5.2",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "config-store": "^0.3.1",
+    "figlet": "^1.5.0",
+    "inquirer": "^8.0.0",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.5",
+    "simple-git": "^2.37.0",
+    "touch": "^3.1.0"
+  }
+}
