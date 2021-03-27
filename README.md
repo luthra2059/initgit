@@ -1,24 +1,21 @@
 # InitGit
 
-InitGit is a node cli for dealing with project Initialization.
+git init initializes a git repository. However, that is usually one of several steps involved in hooking up a project to Git. There are often more steps involved. Nevertheless, these steps are repetitive. 
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the node package manager [npm](https://pip.pypa.io/en/stable/) to install `initgit`.
 
 ```bash
-pip install foobar
+npm install initgit
 ```
 
 ## Usage
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+```bash
+$ initgit
 ```
+Navigate through and give responses as asked.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

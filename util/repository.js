@@ -41,3 +41,15 @@ exports.createGitIgnore = async () => {
     }
 }
 
+exports.setupRepository = async (url) => {
+    const status = new Spinner('Initializing local repository and pushing to remote....')
+    status.start()
+    try {
+        await git.init().add('.gitignore').add('./*').commit('Initial Commit').addRemote('origin', url).push('origin', 'master')
+        return true;
+    } catch (err) {
+        throw err;
+    } finally {
+        status.stop();
+    }
+}

@@ -5,7 +5,7 @@ const _ = require("lodash");
 const clui = require("clui");
 const Spinner = clui.Spinner;
 const chalk = require("chalk");
-const inquirer = require("inquirer");
+const inquirer = require("./inquirer");
 
 const conf = new configStore(pkg.name);
 
@@ -43,3 +43,14 @@ exports.registerNewToken = async () => {
     status.stop();
   }
 };
+
+exports.githubAuth = (token) => {
+    octokit.authenticate({
+        type: 'oauth',
+        token: token
+    })
+}
+
+exports.getStoredGithubToken = () => {
+    return conf.get('github.token')
+}

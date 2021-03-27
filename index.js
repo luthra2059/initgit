@@ -1,7 +1,13 @@
+#!/usr/bin/env node
+
 const chalk = require('chalk')
 const clear = require('clear')
 const figlet = require('figlet')
 const files = require('./util/files')
+const repository = require('./util/repository')
+const github = require('./util/github')
+
+
 
 clear()
 console.log(chalk.yellow(figlet.textSync('InitGit', {
@@ -12,3 +18,35 @@ if (files.directoryExists('.git')) {
     console.log(chalk.red('Already a git repository!!'))
     process.exit()
 }
+
+const getGithubToken = async () => {
+  let token = github.getStoredGithubToken();
+  if (token) return token;
+  await github.setGithubCredentials();
+  token = await github.registerNewToken();
+  return token;
+};
+
+const run = async () => {
+    
+    try {
+        const token = await getGithubToken()
+        github.githubAuth(token)
+        const url = await repository.createRemoteRepository()
+        await repository.createGitIgnore()
+        const done = await repository.setupRepository(url);
+        if(done) console.log(chalk.green('All set up!!!!'))
+    } catch (err) {
+        if (err) {
+            switch (err.code) {
+                case 401: console.log(chalk.red('Couldn\'t log you in. Please provide correct credentials/token.'))
+                    break;
+                case 422: console.log(chalk.red('There already exists a remote repository with the same name'))
+                    break;
+                default: console.log(err)
+            }
+        }
+    }
+}
+
+run()
