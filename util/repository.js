@@ -5,6 +5,7 @@ const clui = require('clui')
 const Spinner = clui.Spinner
 const inquirer = require('inquirer')
 const gh = require('./github')
+const touch = require('touch')
 
 exports.createRemoteRepository = async () => {
     const github = gh.getInstance()
@@ -23,6 +24,20 @@ exports.createRemoteRepository = async () => {
         throw err;
     } finally {
         status.stop()
+    }
+}
+
+exports.createGitIgnore = async () => {
+    const fileList = _.without(fs.readdirSync('.'), '.git', '.gitignore')
+    if (fileList.length) {
+        const answers = await inquirer.askIgnoreFiles(fileList)
+        if (answers.ignore.length) {
+            fs.writeFileSync('.gitignore', answers.ignore.join('\n'))
+        } else {
+            touch('.gitignore')
+        }
+    } else {
+        touch('.gitignore')
     }
 }
 
