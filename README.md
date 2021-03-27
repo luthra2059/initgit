@@ -2,6 +2,10 @@
 
 git init initializes a git repository. However, that is usually one of several steps involved in hooking up a project to Git. There are often more steps involved. Nevertheless, these steps are repetitive. 
 
+`InitGit` provides a command-line interface to create a Git repository in the current folder, create a remote repository and then add it as a remote. Then it will provide a simple interactive “wizard” for creating a .gitignore file, and push it up to the remote repository. 
+
+It might not save you hours, but remove some of the initial friction when starting a new project.
+
 ## Installation
 
 Use the node package manager [npm](https://pip.pypa.io/en/stable/) to install `initgit`.
