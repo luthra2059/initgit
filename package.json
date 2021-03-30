@@ -1,6 +1,6 @@
 {
   "name": "@luthra2059/initgit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Command Line Utility to help with repetitive work of project initialization using git and github.",
   "main": "index.js",
   "scripts": {
