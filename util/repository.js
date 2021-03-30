@@ -1,12 +1,12 @@
 const _ = require("lodash");
 const fs = require("fs");
-const git = require("simple-git/promise")();
+const simplegit = require("simple-git");
 const clui = require("clui");
 const Spinner = clui.Spinner;
 const inquirer = require("./inquirer");
 const gh = require("./github");
 const touch = require("touch");
-
+const git = simplegit();
 exports.createRemoteRepository = async () => {
   const github = gh.getInstance();
   const answers = await inquirer.askRepositoryDetails();
@@ -18,27 +18,31 @@ exports.createRemoteRepository = async () => {
   const status = new Spinner("Creating remote repository....");
   status.start();
   try {
-    const response = await github.repos.create(data);
-    return response.data.ssh_url;
+    const response = await github.repos.createForAuthenticatedUser(data);
+    return response.data.clone_url;
   } catch (err) {
-    throw err;
+      console.log(err);
   } finally {
     status.stop();
   }
 };
 
 exports.createGitIgnore = async () => {
-  const fileList = _.without(fs.readdirSync("."), ".git", ".gitignore");
+    const fileList = _.without(fs.readdirSync("."), ".git", ".gitignore");
+    let answers;
   if (fileList.length) {
-    const answers = await inquirer.askIgnoreFiles(fileList);
+    answers = await inquirer.askIgnoreFiles(fileList);
     if (answers.ignore.length) {
       fs.writeFileSync(".gitignore", answers.ignore.join("\n"));
     } else {
-      touch(".gitignore");
+        touch(".gitignore");
+        fs.writeFileSync(".gitignore", answers.ignore.join("\n"));
     }
   } else {
-    touch(".gitignore");
-  }
+      touch(".gitignore");
+      fs.writeFileSync(".gitignore", answers.ignore.join("\n"));
+    }
+    //console.log(answers.ignore.default);
 };
 
 exports.setupRepository = async (url) => {
@@ -47,16 +51,19 @@ exports.setupRepository = async (url) => {
   );
   status.start();
   try {
-    //await git.init().add('.gitignore').add('./*').commit('Initial Commit').addRemote('origin', url).push('origin', 'master')
-    return git
-      .init()
-      .then(git.add(".gitignore"))
-      .then(git.add("./*"))
-      .then(git.commit("Initial Commit"))
-      .then(git.addRemote("origin", url))
-      .then(git.push("origin", "master"));
+    await git.init().add('.gitignore').add('./*').commit('Initial Commit').addRemote('origin', url).push('origin', 'master')
+    // return await git
+    //   .init()
+    //   .then(git.add(".gitignore"))
+    //   .then(git.add("."))
+    //   .then(git.commit("Initial Commit"))
+    //   .then(git.addRemote("origin", url))
+    //     .then(git.push("origin", "master")).catch(err => {
+    //         console.log(err);
+    //   });
+      return true;
   } catch (err) {
-    throw err;
+      console.log(err);
   } finally {
     status.stop();
   }

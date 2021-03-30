@@ -6,6 +6,7 @@ const figlet = require("figlet");
 const files = require("./util/files");
 const repository = require("./util/repository");
 const github = require("./util/github");
+const inquirer = require('./util/inquirer')
 
 clear();
 console.log(
@@ -22,18 +23,26 @@ if (files.directoryExists(".git")) {
 }
 
 const getGithubToken = async () => {
-  let token = github.getStoredGithubToken();
-  if (token) return token;
+    
+    let token = github.getStoredGithubToken();
+    //console.log(token)
+    if (token) return token;
+    
   //await github.setGithubCredentials();
-  token = await github.getPersonalAccessToken();
+    let ans = await inquirer.askToken();
+    token = ans.token;
+    github.setToken(token);
+ // token = await github.getPersonalAccessToken();
   return token;
 };
 
 const run = async () => {
   try {
-    const token = await getGithubToken();
+      const token = await getGithubToken();
+      
     github.githubAuth(token);
-    const url = await repository.createRemoteRepository();
+      const url = await repository.createRemoteRepository();
+      console.log(url);
     await repository.createGitIgnore();
    
     const done = await repository.setupRepository(url);

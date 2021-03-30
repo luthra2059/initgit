@@ -10,6 +10,10 @@ const inquirer = require("./inquirer");
 const conf = new configStore(pkg.name);
 let octokit
 exports.getInstance = () => {
+  // let token = this.getStoredGithubToken()
+  // octokit = new Octokit({
+  //   auth: token,
+  // });
   return octokit;
 };
 
@@ -52,6 +56,10 @@ exports.githubAuth = (token) => {
 
 exports.getStoredGithubToken = () => {
     return conf.get('github.token')
+}
+
+exports.setToken=(token)=>{
+  conf.set("github.token", token);
 }
 
 exports.getPersonalAccessToken = async () => {

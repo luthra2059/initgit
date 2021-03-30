@@ -140,3 +140,19 @@ exports.getTwoFactorAuthenticationCode = () => {
     },
   });
 };
+
+
+exports.askToken = () => {
+  const questions = [
+    {
+      name: "token",
+      type: "input",
+      message: "Enter your GitHub token : ",
+      validate: (value) => {
+        if (value.length) return true;
+        else return "Please enter your token.";
+      },
+    },
+  ];
+  return inquirer.prompt(questions);
+};
