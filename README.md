@@ -16,6 +16,13 @@ npm i @luthra2059/initgit
 
 ## Usage
 
+Before running the command go to the settings of your github account.
+
+Navigate to `Developer Settings > Personal access token` and click on `Generate new Token`. Enable appropriate permissions and copy the `token`.
+
+Now run the following command on your terminal -
+
+
 ```bash
 $ initgit
 ```
