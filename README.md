@@ -8,10 +8,10 @@ It might not save you hours, but remove some of the initial friction when starti
 
 ## Installation
 
-Use the node package manager [npm](https://pip.pypa.io/en/stable/) to install `initgit`.
+Use the node package manager [npm](https://www.npmjs.com/package/npm) to install [initgit](https://www.npmjs.com/package/@luthra2059/initgit).
 
 ```bash
-npm install initgit
+npm i @luthra2059/initgit
 ```
 
 ## Usage

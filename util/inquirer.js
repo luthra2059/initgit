@@ -125,3 +125,18 @@ exports.askIgnoreFiles = (fileList) => {
   ];
   return inquirer.prompt(questions);
 };
+
+exports.getTwoFactorAuthenticationCode = () => {
+  return inquirer.prompt({
+    name: "twoFactorAuthenticationCode",
+    type: "input",
+    message: "Enter you two-factor authentication code : ",
+    validate: function (value) {
+      if (value.length) {
+        return true;
+      } else {
+        return "Please enter your two-factor authentication code.";
+      }
+    },
+  });
+};

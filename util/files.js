@@ -7,7 +7,8 @@ exports.getCurrentDirectoryBase = () => {
 
 exports.directoryExists = (filePath) => {
     try {
-        return fs.statSync(filePath).isDirectory();
+        //return fs.statSync(filePath).isDirectory();
+        return fs.existsSync(filePath)
     } catch (err) {
         return false
     }
